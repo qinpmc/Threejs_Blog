@@ -62,7 +62,13 @@ function init() {
 
     // position and point the camera to the center of the scene
     camera.position.set(-30, 40, 30);
+
+    var position = new THREE.Vector3(0,0,2);
+
     camera.lookAt(scene.position);
+
+    camera.lookAt(position);
+
 
     // add the output of the renderer to the html element
     document.getElementById("webgl-output").appendChild(renderer.domElement);
