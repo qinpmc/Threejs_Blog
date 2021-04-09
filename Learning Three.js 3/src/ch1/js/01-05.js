@@ -8,7 +8,7 @@ function init() {
 
     // create a scene, that will hold all our elements such as objects, cameras and lights.
     var scene = new THREE.Scene();
-
+    var clock = new THREE.Clock();
     // create a camera, which defines where we're looking at.
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -80,6 +80,9 @@ function init() {
     // add the output of the renderer to the html element
     document.getElementById("webgl-output").appendChild(renderer.domElement);
 
+    // attach them here, since appendChild needs to be called first
+    var trackballControls = initTrackballControls2(camera, renderer);
+
     // call the render function
     var step = 0;
 
@@ -108,9 +111,7 @@ function init() {
         return trackballControls;
     }
 
-    // attach them here, since appendChild needs to be called first
-    var trackballControls = initTrackballControls2(camera, renderer);
-    var clock = new THREE.Clock();
+
 
     render();
 
