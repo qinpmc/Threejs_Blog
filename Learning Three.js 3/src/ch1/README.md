@@ -8,12 +8,23 @@
 - plane.receiveShadow = true;
 - spotLight.castShadow = true; // 并不是所有的光源都可以产生阴影
 
-3 . 使得鼠标交互生效,initTrackballControls 放在 document.getElementById("webgl-output").appendChild(renderer.domElement) 后面才生效。
+
+3. mesh可以同时接受和投射阴影(03-materials-light3_测试阴影.html)：
+
+```
+  roofMesh.receiveShadow = true;
+  baseMesh.receiveShadow = true;
+  roofMesh.castShadow = true;
+  baseMesh.castShadow = true;
+```
+
+4. 使得鼠标交互生效,initTrackballControls 放在 document.getElementById("webgl-output").appendChild(renderer.domElement) 后面才生效:
 
 ```
     // add the output of the renderer to the html element
     document.getElementById("webgl-output").appendChild(renderer.domElement);
 
+    var clock = new THREE.Clock();
     // initialize the trackball controls and the clock which is needed ,
     var trackballControls = initTrackballControls(camera, renderer);
 
@@ -32,3 +43,19 @@
 }
 
 ```
+
+并且render 应当 循环执行：
+
+```
+    // call the render function
+    render();
+
+    function render(){
+        trackballControls.update(clock.getDelta());
+        // render using requestAnimationFrame
+        requestAnimationFrame(render);
+        // call the render function
+        renderer.render(scene, camera);
+    }
+
+````
